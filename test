@@ -1,0 +1,21 @@
+const {Builder, By, until} = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+
+(async function hoverExample() {
+    let driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options()).build();
+    try {
+        // Navigate to your page
+        await driver.get('http://example.com');
+
+        // Locate the element by its XPath
+        let elementToHoverOver = await driver.findElement(By.xpath('//your-element-xpath-here'));
+
+        // Perform the hover action
+        await driver.actions({bridge: true}).move({origin:elementToHoverOver}).perform();
+
+        // Add any actions here after hovering, like clicking a dynamically displayed button, etc.
+    } finally {
+        // Close the browser after completion
+        await driver.quit();
+    }
+})();
